@@ -13,8 +13,8 @@ GINKGO = ginkgo -p
 CONTROLLER_GEN ?= controller-gen
 
 REGISTRY ?= docker.io
-CONTROLLER_IMAGE = $(REGISTRY)/bitnami/sealed-secrets-controller:latest
-KUBESEAL_IMAGE = $(REGISTRY)/bitnami/sealed-secrets-kubeseal:latest
+CONTROLLER_IMAGE = $(REGISTRY)/devlumen5/sealed-secrets-controller:latest
+KUBESEAL_IMAGE = $(REGISTRY)/devlumen5/sealed-secrets-kubeseal:latest
 INSECURE_REGISTRY = false # useful for local registry
 IMAGE_PULL_POLICY =
 KUBECONFIG ?= $(HOME)/.kube/config
@@ -91,7 +91,7 @@ define image
 $(1).image.$(3)-$(4): docker/$(1).Dockerfile $(1)-static-$(3)-$(4)
 	mkdir -p dist/$(1)_$(3)_$(4)
 	cp $(1)-static-$(3)-$(4) dist/$(1)_$(3)_$(4)/$(1)
-	$(DOCKER) build --build-arg TARGETARCH=$(4) -t $(2)-$(3)-$(4) -f docker/$(1).Dockerfile .
+	$(DOCKER) buildx build --platform $(3)/$(4) --build-arg TARGETARCH=$(4) -t $(2)-$(3)-$(4) -f docker/$(1).Dockerfile . --load
 	@echo $(2)-$(3)-$(4) >$$@.tmp
 	@mv $$@.tmp $$@
 endef
