@@ -5,16 +5,13 @@
 This fork includes Docker buildx support for cross-platform builds (useful for building amd64 images on M1 Macs):
 
 ```bash
-# 1. Build static binary for linux-amd64
-make controller-static-linux-amd64
-
-# 2. Build container image (outputs: devlumen5/sealed-secrets-controller:latest-linux-amd64)
+# 1. Build container image (outputs: devlumen5/sealed-secrets-controller:latest)
 make controller.image.linux-amd64
 
-# 3. Tag with your desired version
-docker tag devlumen5/sealed-secrets-controller:latest-linux-amd64 your-registry/sealed-secrets-controller:v0.18.5
+# 2. Tag with your desired version
+docker tag devlumen5/sealed-secrets-controller:latest your-registry/sealed-secrets-controller:v0.18.5
 
-# 4. Push to your registry
+# 3. Push to your registry
 docker push your-registry/sealed-secrets-controller:v0.18.5
 ```
 
