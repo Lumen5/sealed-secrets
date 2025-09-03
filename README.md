@@ -1,5 +1,27 @@
 # "Sealed Secrets" for Kubernetes
 
+## 🔨 Building Container Images
+
+This fork includes Docker buildx support for cross-platform builds (useful for building amd64 images on M1 Macs):
+
+```bash
+# 1. Build static binary for linux-amd64
+make controller-static-linux-amd64
+
+# 2. Build container image (outputs: devlumen5/sealed-secrets-controller:latest-linux-amd64)
+make controller.image.linux-amd64
+
+# 3. Tag with your desired version
+docker tag devlumen5/sealed-secrets-controller:latest-linux-amd64 your-registry/sealed-secrets-controller:v0.18.5
+
+# 4. Push to your registry
+docker push your-registry/sealed-secrets-controller:v0.18.5
+```
+
+**Note**: Update the `REGISTRY` and image names in the `Makefile` as needed for your registry.
+
+---
+
 [![](https://img.shields.io/badge/install-docs-brightgreen.svg)](#Installation)
 [![](https://img.shields.io/github/release/bitnami-labs/sealed-secrets.svg)](https://github.com/bitnami-labs/sealed-secrets/releases/latest)
 [![](https://img.shields.io/homebrew/v/kubeseal)](https://formulae.brew.sh/formula/kubeseal)
